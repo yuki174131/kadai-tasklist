@@ -11,11 +11,15 @@ class TasksController extends Controller
     //getでtasks/にアクセスされた場合の「一覧表示処理」
     public function index()
     {
-        $tasks = Task::all();
+        $tasks = Task::where('user_id', \Auth::id())->get();
         
-        return view('tasks.index', [
-            'tasks' => $tasks,
-        ]);
+        if (\Auth::check()) {
+            return view('tasks.index', [
+                'tasks' => $tasks,
+            ]);
+          } else {
+            return view('welcome');
+        }
     }
 
     //getでtasks/createにアクセスされた場合の「新規登録画面表示処理」
@@ -44,7 +48,7 @@ class TasksController extends Controller
         return redirect('/');
     }
 
-    //getでtasks/idにアクセスされた場合の「取得表示処理」
+    //getでtasks/idにアクセスされた場合の「取得表示処��」
     public function show($id)
     {
         $task = Task::find($id);
