@@ -54,7 +54,7 @@ class TasksController extends Controller
     {   
         $task = Task::find($id);
         
-        if ($task->user_id = \Auth::id()) {
+        if ($task->user_id === \Auth::id()) {
         
         return view('tasks.show', [
             'task' => $task,
@@ -69,7 +69,7 @@ class TasksController extends Controller
     {  
         $task = Task::find($id);
         
-        if ($task->user_id = \Auth::id()) {
+        if ($task->user_id === \Auth::id()) {
         
         return view('tasks.edit', [
             'task' => $task,
@@ -101,7 +101,7 @@ class TasksController extends Controller
     {   
         $task = Task::find($id);
         
-        if ($task->user_id = \Auth::id()) {
+        if ($task->user_id === \Auth::id()) {
         
             $task->delete();
             return redirect('/');
