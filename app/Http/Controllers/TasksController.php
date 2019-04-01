@@ -52,9 +52,9 @@ class TasksController extends Controller
     //getでtasks/idにアクセスされた場合の「取得表示処��」
     public function show($id)
     {   
-        if ($task->user_id = \Auth::id()) {
-        
         $task = Task::find($id);
+        
+        if ($task->user_id = \Auth::id()) {
         
         return view('tasks.show', [
             'task' => $task,
@@ -66,10 +66,10 @@ class TasksController extends Controller
 
     //getでtasks/id/editにアクセスされた場合の「更新画面表示処理」
     public function edit($id)
-    {   
-        if ($task->user_id = \Auth::id()) {
-        
+    {  
         $task = Task::find($id);
+        
+        if ($task->user_id = \Auth::id()) {
         
         return view('tasks.show', [
             'task' => $task,
@@ -99,9 +99,9 @@ class TasksController extends Controller
     //deleteでtasks/idにアクセスされた場合の「削除処理」
     public function destroy($id)
     {   
-        if ($task->user_id = \Auth::id()) {
-        
         $task = Task::find($id);
+        
+        if ($task->user_id = \Auth::id()) {
         
         return view('tasks.show', [
             'task' => $task,
