@@ -24,7 +24,7 @@ class TasksController extends Controller
 
     //getでtasks/createにアクセスされた場合の「新規登録画面表示処理」
     public function create()
-    {
+    {   
         $task = new Task;
         
         return view('tasks.create',[
@@ -41,6 +41,7 @@ class TasksController extends Controller
         ]);
         
         $task = new Task;
+        $task->user_id = \Auth::id();
         $task->status = $request->status;
         $task->content = $request->content;
         $task->save();
@@ -50,22 +51,32 @@ class TasksController extends Controller
 
     //getでtasks/idにアクセスされた場合の「取得表示処��」
     public function show($id)
-    {
+    {   
+        if ($task->user_id = \Auth::id()) {
+        
         $task = Task::find($id);
         
         return view('tasks.show', [
             'task' => $task,
         ]);
+        } else {
+            return redirect('/');
+        }
     }
 
     //getでtasks/id/editにアクセスされた場合の「更新画面表示処理」
     public function edit($id)
-    {
+    {   
+        if ($task->user_id = \Auth::id()) {
+        
         $task = Task::find($id);
         
-        return view('tasks.edit', [
+        return view('tasks.show', [
             'task' => $task,
         ]);
+        } else {
+            return redirect('/');
+        }
     }
 
     //putまたはpatchでtasks/idにアクセスされた場合の「更新処理」
@@ -77,6 +88,7 @@ class TasksController extends Controller
         ]);
         
         $task = Task::find($id);
+        $task->user_id = \Auth::id();
         $task->status = $request->status;
         $task->content = $request->content;
         $task->save();
@@ -86,10 +98,16 @@ class TasksController extends Controller
 
     //deleteでtasks/idにアクセスされた場合の「削除処理」
     public function destroy($id)
-    {
-        $task = Task::find($id);
-        $task->delete();
+    {   
+        if ($task->user_id = \Auth::id()) {
         
-        return redirect('/');
+        $task = Task::find($id);
+        
+        return view('tasks.show', [
+            'task' => $task,
+        ]);
+        } else {
+            return redirect('/');
+        }
     }
 }
